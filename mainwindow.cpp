@@ -2,12 +2,31 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <string.h>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->DernierCodeSaisi2->setText("Pas de code saisi !!");
+
+
+    QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
+    db.setDatabaseName("Driver={MySQL ODBC 8.0 Unicode Driver};DATABASE=edt1;");
+      db.setHostName("localhost");
+    //  db.setDatabaseName("edt1");
+      db.setUserName("utilisateur1");
+      db.setPassword("utilisateur1");
+      bool ok = db.open();
+
+
+      QSqlQuery q("SELECT * FROM cours");
+         while (q.next()) {
+             QString text = q.value(1).toString();
+
+         }
+int i = 0 ;
+
 }
 
 MainWindow::~MainWindow()
